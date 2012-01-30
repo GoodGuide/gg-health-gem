@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = GoodguideHealth::VERSION
   s.authors     = ["Jay Adkisson", "Joshua Bates"]
   s.email       = ["jay@goodguide.com", "joshua.bates@goodguide.com"]
-  s.homepage    = "www.goodguide.com"
+  s.homepage    = "http://www.goodguide.com"
   s.summary     = "Adds /health endpoint for haproxy"
   s.description = "Adds /health endpoint for haproxy"
 

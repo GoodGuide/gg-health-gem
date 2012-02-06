@@ -5,7 +5,7 @@ class HealthController < ApplicationController
 
   def status
     render :json => {
-      app: 'api',
+      app: app_name,
       revision: revision,
       deployed_at: deployed_at,
       host: %x(hostname).chomp,
@@ -17,6 +17,11 @@ class HealthController < ApplicationController
   end
 
   private
+
+  # TODO: make this better
+  def app_name
+    (Rails.application.parent_name || '').underscore
+  end
 
   def revision
     @revision ||= Object.const_defined?(:CODE_REVISION) ?

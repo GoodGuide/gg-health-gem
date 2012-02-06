@@ -19,13 +19,13 @@ class HealthController < ApplicationController
   private
 
   def revision
-    @revision ||= const_defined?(:CODE_REVISION) ?
+    @revision ||= Object.const_defined?(:CODE_REVISION) ?
       CODE_REVISION :
       %x[git rev-parse HEAD].chomp
   end
 
   def deployed_at
-    @deployed_at ||= const_defined?(:CODE_DEPLOYMENT_TIMESTAMP) ?
+    @deployed_at ||= Object.const_defined?(:CODE_DEPLOYMENT_TIMESTAMP) ?
       Time.at(CODE_DEPLOYMENT_TIMESTAMP) :
       Time.now
   end

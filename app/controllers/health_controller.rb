@@ -1,4 +1,6 @@
 class HealthController < ApplicationController
+  caches_action false
+
   def show
     render :text => 'OK'
   end

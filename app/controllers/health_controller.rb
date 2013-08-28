@@ -1,3 +1,9 @@
+begin
+  require 'actionpack/action_caching'
+rescue
+  # Only in rails 4
+end
+
 class HealthController < ApplicationController
   caches_action false
 

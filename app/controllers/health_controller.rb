@@ -1,5 +1,5 @@
 class HealthController < ApplicationController
-  caches_action false if defined?(:caches_action)
+  caches_action false if respond_to?(:caches_action)
 
   def show
     render :text => 'OK'

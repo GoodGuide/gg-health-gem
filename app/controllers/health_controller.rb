@@ -1,11 +1,5 @@
-begin
-  require 'actionpack/action_caching'
-rescue
-  # Only in rails 4
-end
-
 class HealthController < ApplicationController
-  caches_action false
+  caches_action false if defined?(:caches_action)
 
   def show
     render :text => 'OK'

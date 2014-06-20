@@ -3,11 +3,11 @@ module GoodguideHealth
     caches_action false
 
     def show
-      render :text => 'OK'
+      render text: 'OK'
     end
 
     def status
-      render :json => {
+      render json: {
         app: app_name,
         revision: revision,
         deployed_at: deployed_at,

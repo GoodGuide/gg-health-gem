@@ -1,3 +1,22 @@
 = GoodguideHealth
 
+The GoodGuide Health gem is a Rails mountable engine plugin that provides an
+application status endpoints that are checked by an HAproxy load balancer.  It
+is used in the consumer web app, platform, api, nlpapi, and elsewhere.
+
+The older version of this gem wasn't mountable.  The mountable version offers
+greater control of route ordering and allows us to use a final catch-all route
+within our apps to handle custom 404 pages.
+
+If you are updating a host app that used the older version, you will need to
+explictly mount the GoodGuide Health gem in your app.
+
+To mount the engine in the host app, edit the host app's routes.rb:
+
+  mount GoodguideHealth::Engine, at: '/(name_of_mount_path)'
+
+For example, most GoodGuide apps mount the engine at '/health':
+
+  mount GoodguideHealth::Engine, at: '/health'
+
 This project rocks and uses MIT-LICENSE.

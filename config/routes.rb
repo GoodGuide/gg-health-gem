@@ -1,6 +1,5 @@
-Rails.application.routes.draw do
-  resource :health, :controller => 'health', :only => [:show] do
-    get 'status'
-    get 'error'
-  end
+GoodguideHealth::Engine.routes.draw do
+  get '/', to: 'application#show'
+  get '/status', to: 'application#status'
+  get '/error', to: 'application#error'
 end

@@ -11,7 +11,7 @@ module GoodguideHealth
         app: app_name,
         revision: revision,
         deployed_at: deployed_at,
-        host: %x(hostname).chomp,
+        host: `hostname`.chomp
       }
     end
 
@@ -34,7 +34,7 @@ module GoodguideHealth
     def revision
       @revision ||= Object.const_defined?(:CODE_REVISION) ?
         CODE_REVISION :
-        %x[git rev-parse HEAD].chomp
+        `git rev-parse HEAD`.chomp
     end
 
     def deployed_at

@@ -1,6 +1,6 @@
 module GoodguideHealth
   class ApplicationController < ActionController::Base
-    caches_action false
+    caches_action false if respond_to? :caches_action
 
     def show
       render text: 'OK'

@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-
-  mount GoodguideHealth::Engine => "/goodguide-health"
+  mount Goodguide::Health::Engine => "/health"
 end

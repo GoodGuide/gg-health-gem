@@ -23,13 +23,7 @@ module Goodguide
       private
 
       def app_name
-        # stupid stupid stupid
-        # sometimes Rails.application is a class,
-        # sometimes it's an instance.
-        app_class = Rails.application
-        app_class = app_class.class unless app_class.is_a? Class
-
-        app_class.parent_name.underscore
+        @app_name ||= Rails.application.class.parent_name.underscore
       end
 
       def revision

@@ -1,0 +1,9 @@
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.2
+  - jruby-1.7.12
+gemfile:
+  - gemfiles/rails32.gemfile
+  - gemfiles/rails40.gemfile
+script: "rake test"

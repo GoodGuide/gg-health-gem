@@ -7,6 +7,16 @@ module Goodguide
         render text: 'OK'
       end
 
+      def maintenance
+        json = if maintenance?
+          { maintenance: true, message: maintenance_message }
+        else
+          { maintenance: false }
+        end
+
+        render json: json
+      end
+
       def status
         render json: {
           app: app_name,

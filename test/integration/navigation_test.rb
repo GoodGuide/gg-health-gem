@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class NavigationTest < ActionDispatch::IntegrationTest
-
   test "health ping" do
     get '/health'
     assert_response :success

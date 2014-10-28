@@ -16,5 +16,21 @@ class NavigationTest < ActionDispatch::IntegrationTest
   test "health error ping" do
     assert_raises(RuntimeError) { get '/health/error' }
   end
+
+  test "maintenance mode enabled" do
+    Goodguide::Health::Maintenance.instance.enable!('custom message')
+    get '/health/maintenance'
+    status = JSON.parse(response.body)
+    assert_response :success
+    assert_equal status, { 'maintenance' => true, 'message' => 'custom message' }
+  end
+
+  test "maintenance mode disabled" do
+    Goodguide::Health::Maintenance.instance.disable!
+    get '/health/maintenance'
+    status = JSON.parse(response.body)
+    assert_response :success
+    assert_equal status, { 'maintenance' => false }
+  end
 end
 

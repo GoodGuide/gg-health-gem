@@ -8,8 +8,8 @@ require 'goodguide/health/version'
 Gem::Specification.new do |s|
   s.name        = 'goodguide-health'
   s.version     = Goodguide::Health::VERSION
-  s.authors     = ['Jay Adkisson', 'Joshua Bates', 'Matt Ridenour']
-  s.email       = ['jay@goodguide.com', 'joshua.bates@goodguide.com', 'matt@goodguide.com']
+  s.authors     = ['Jeanine Adkisson', 'Joshua Bates', 'Matt Ridenour']
+  s.email       = ['jneen@goodguide.com', 'joshua.bates@goodguide.com', 'matt@goodguide.com']
   s.homepage    = 'http://www.goodguide.com'
   s.summary     = 'Adds status endpoints for haproxy to be mounted in the host app at /health'
   s.description = 'Adds status endpoints for haproxy to be mounted in the host app at /health'

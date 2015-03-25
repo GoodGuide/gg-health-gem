@@ -6,4 +6,5 @@ rvm:
 gemfile:
   - gemfiles/rails32.gemfile
   - gemfiles/rails40.gemfile
+  - gemfiles/rails31.gemfile
 script: "rake test"

@@ -22,7 +22,7 @@ module Goodguide
           app: app_name,
           revision: revision,
           deployed_at: deployed_at,
-          host: `hostname`.chomp
+          host: hostname
         }
       end
 
@@ -46,6 +46,10 @@ module Goodguide
         @deployed_at ||= Object.const_defined?(:CODE_DEPLOYMENT_TIMESTAMP) ?
           Time.at(CODE_DEPLOYMENT_TIMESTAMP) :
           Time.now
+      end
+
+      def hostname
+        @hostname ||= `hostname`.chomp
       end
     end
   end

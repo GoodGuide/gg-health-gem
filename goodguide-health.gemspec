@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
-  s.add_runtime_dependency "rails", ">= 3.1.12"
+  s.add_runtime_dependency "railties", ">= 3.1.12"
 
   s.add_development_dependency 'wwtd'
   s.add_development_dependency 'minitest-spec-rails'

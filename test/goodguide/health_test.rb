@@ -101,6 +101,26 @@ class Goodguide::HealthTest < Minitest::Test
     )
   end
 
+  def test_status_with_subset_of_checks
+    Goodguide::Health.configure do |health|
+      health.check :custom_check_that_times_out, timeout: 0.01 do
+        sleep 1
+      end
+
+      health.check :foobar do
+        123
+      end
+    end
+    get '/status?checks=foobar'
+
+    assert_equal 200, last_response.status
+    assert_status_response_matches parsed_response, {
+      status: 'ok',
+      now: Time.now.to_i.to_s,
+      foobar: 123,
+    }
+  end
+
   private
 
   def git_revision

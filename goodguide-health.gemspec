@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'goodguide-health'
   spec.version       = Goodguide::Health::VERSION
   spec.authors       = ['Ryan Taylor Long']
-  spec.email         = ['ryan@rtlong.com']
+  spec.email         = ['ryan.long@goodguide.com']
   spec.summary       = 'application health summary check/endpoint'
   spec.homepage      = ''
   spec.license       = 'MIT'

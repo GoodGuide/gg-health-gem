@@ -42,7 +42,7 @@ module Goodguide
     attr_reader :hostname, :booted_at
 
     def call(env)
-      [200, {}, ['OK']]
+      [200, { 'Content-Type' => 'text/plain' }, ['OK']]
     end
 
     def configure(&block)

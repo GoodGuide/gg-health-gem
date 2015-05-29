@@ -116,7 +116,7 @@ class Goodguide::HealthTest < Minitest::Test
     assert_equal 200, last_response.status
     assert_status_response_matches parsed_response, {
       status: 'ok',
-      now: Time.now.to_i.to_s,
+      now: Time.now.to_i,
       foobar: 123,
     }
   end
@@ -145,7 +145,7 @@ class Goodguide::HealthTest < Minitest::Test
   def default_status_response
     {
       status: 'ok',
-      now: Time.now.to_i.to_s,
+      now: Time.now.to_i,
       deployed_at: app_boot_time.to_s,
       started_at: app_boot_time.to_s,
       host: `hostname`.chomp,

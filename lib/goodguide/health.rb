@@ -1,5 +1,6 @@
 require 'forwardable'
 require 'rack/builder'
+require 'rack/urlmap'
 require 'pinglish'
 require 'goodguide/health/version'
 
@@ -14,7 +15,9 @@ module Goodguide
           map '/status' do
             run health.pinglish
           end
-          run health
+          map '/' do
+            run health
+          end
         end
       end
 

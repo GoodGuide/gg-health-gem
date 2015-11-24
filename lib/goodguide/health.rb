@@ -35,14 +35,27 @@ module Goodguide
     end
 
     def initialize
-      @hostname = `hostname`.chomp
       @booted_at = Time.now
       @deployed_at = @booted_at
-      @revision = `git rev-parse HEAD`.chomp
     end
 
-    attr_accessor :revision, :deployed_at
-    attr_reader :hostname, :booted_at
+    attr_accessor :deployed_at
+    attr_reader :booted_at
+    attr_writer :revision
+
+    def hostname
+      @hostname ||= ENV['DEPLOYMENT_HOST'] || ENV.fetch('HOSTNAME') {
+        output = `hostname`
+        $? == 0 ? output.chomp : 'unknown'
+      }
+    end
+
+    def revision
+      @revision ||= ENV.fetch('DEPLOYMENT_REVISION') {
+        output = `git rev-parse HEAD`
+        $? == 0 ? output.chomp : 'unknown'
+      }
+    end
 
     def call(env)
       [200, { 'Content-Type' => 'text/plain' }, ['OK']]

@@ -45,14 +45,14 @@ module Goodguide
 
     def hostname
       @hostname ||= ENV['DEPLOYMENT_HOST'] || ENV.fetch('HOSTNAME') {
-        output = `hostname`
+        output = `hostname 2>/dev/null`
         $? == 0 ? output.chomp : 'unknown'
       }
     end
 
     def revision
       @revision ||= ENV.fetch('DEPLOYMENT_REVISION') {
-        output = `git rev-parse HEAD`
+        output = `git rev-parse HEAD 2>/dev/null`
         $? == 0 ? output.chomp : 'unknown'
       }
     end

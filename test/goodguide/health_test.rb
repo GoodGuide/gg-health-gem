@@ -27,7 +27,7 @@ class Goodguide::HealthTest < Minitest::Test
     get '/'
 
     assert last_response.ok?
-    assert_equal 'OK', last_response.body
+    assert_equal "OK\n", last_response.body
   end
 
   def test_status_default
@@ -35,6 +35,13 @@ class Goodguide::HealthTest < Minitest::Test
 
     assert last_response.ok?
     assert_status_response_matches parsed_response, default_status_response
+  end
+
+  def test_status_termination
+    get '/status'
+
+    assert last_response.ok?
+    assert last_response.body.end_with?("\n"), 'Output should end with an ASCII newline char'
   end
 
   def test_status_with_deployment_info
@@ -52,8 +59,7 @@ class Goodguide::HealthTest < Minitest::Test
     )
   end
 
-  def test_status_with_deployment_info
-    timestamp = 1430162520
+  def test_status_with_gg_env
     Goodguide::Health.configure do |health|
       health.gg_env = 'production'
     end

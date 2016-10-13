@@ -3,6 +3,7 @@ require 'rack/builder'
 require 'rack/urlmap'
 require 'pinglish'
 require 'goodguide/health/version'
+require 'goodguide/health/newline_middleware'
 
 module Goodguide
   class Health
@@ -12,6 +13,8 @@ module Goodguide
       def app
         health = instance
         Rack::Builder.app do
+          use NewlineMiddleware
+
           map '/status' do
             run health.pinglish
           end
@@ -70,7 +73,7 @@ module Goodguide
     end
 
     def call(env)
-      [200, { 'Content-Type' => 'text/plain' }, ['OK']]
+      [200, { 'Content-Type' => 'text/plain' }, ["OK\n"]]
     end
 
     def configure(&block)

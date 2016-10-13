@@ -52,6 +52,17 @@ class Goodguide::HealthTest < Minitest::Test
     )
   end
 
+  def test_status_with_deployment_info
+    timestamp = 1430162520
+    Goodguide::Health.configure do |health|
+      health.gg_env = 'production'
+    end
+    get '/status'
+
+    assert last_response.ok?
+    assert_status_response_matches parsed_response, default_status_response.merge(gg_env: 'production')
+  end
+
   def test_status_with_custom_checks
     Goodguide::Health.configure do |health|
       health.check :custom_check do
@@ -129,17 +140,6 @@ class Goodguide::HealthTest < Minitest::Test
 
   def parsed_response
     JSON.parse(last_response.body)
-  end
-
-  def default_status_keys
-    [
-      'deployed_at',
-      'host',
-      'now',
-      'revision',
-      'started_at',
-      'status'
-    ]
   end
 
   def default_status_response

@@ -39,19 +39,23 @@ module Goodguide
     end
 
     attr_reader :booted_at
-    attr_writer :revision, :deployed_at, :hostname
+    attr_writer :revision, :deployed_at, :hostname, :gg_env
 
     def hostname
-      @hostname ||= ENV['DEPLOYMENT_HOST'] || ENV.fetch('HOSTNAME') {
-        output = `hostname 2>/dev/null`
-        $? == 0 ? output.chomp : nil
+      @hostname ||= ENV.fetch('DEPLOYMENT_HOST') {
+        ENV.fetch('HOSTNAME') {
+          output = `hostname 2>/dev/null`
+          $? == 0 ? output.chomp : nil
+        }
       }
     end
 
     def revision
-      @revision ||= ENV.fetch('DEPLOYMENT_REVISION') {
-        output = `git rev-parse HEAD 2>/dev/null`
-        $? == 0 ? output.chomp : nil
+      @revision ||= ENV.fetch('GIT_REVISION') {
+        ENV.fetch('DEPLOYMENT_REVISION') {
+          output = `git rev-parse HEAD 2>/dev/null`
+          $? == 0 ? output.chomp : nil
+        }
       }
     end
 
@@ -59,6 +63,10 @@ module Goodguide
       @deployed_at ||= ENV.key?('DEPLOYMENT_TIMESTAMP') ?
         Time.at(ENV['DEPLOYMENT_TIMESTAMP'].to_i) :
         booted_at
+    end
+
+    def gg_env
+      @gg_env ||= ENV['GG_ENV']
     end
 
     def call(env)
@@ -75,6 +83,7 @@ module Goodguide
         ping.check(:deployed_at) { deployed_at }
         ping.check(:revision) { revision }
         ping.check(:started_at) { booted_at }
+        ping.check(:gg_env) { gg_env }
       end
     end
 

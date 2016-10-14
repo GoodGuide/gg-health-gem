@@ -1,3 +1,4 @@
+require 'time'
 require 'forwardable'
 require 'rack/builder'
 require 'rack/urlmap'
@@ -38,7 +39,7 @@ module Goodguide
     end
 
     def initialize
-      @booted_at = Time.now
+      @booted_at = Time.now.utc
     end
 
     attr_reader :booted_at
@@ -64,7 +65,7 @@ module Goodguide
 
     def deployed_at
       @deployed_at ||= ENV.key?('DEPLOYMENT_TIMESTAMP') ?
-        Time.at(ENV['DEPLOYMENT_TIMESTAMP'].to_i) :
+        Time.at(ENV['DEPLOYMENT_TIMESTAMP'].to_i).utc :
         booted_at
     end
 
@@ -83,9 +84,9 @@ module Goodguide
     def pinglish
       @pinglish ||= Pinglish.new do |ping|
         ping.check(:host) { hostname }
-        ping.check(:deployed_at) { deployed_at }
+        ping.check(:deployed_at) { deployed_at.iso8601 }
         ping.check(:revision) { revision }
-        ping.check(:started_at) { booted_at }
+        ping.check(:started_at) { booted_at.iso8601 }
         ping.check(:gg_env) { gg_env }
       end
     end

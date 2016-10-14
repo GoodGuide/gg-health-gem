@@ -48,13 +48,13 @@ class Goodguide::HealthTest < Minitest::Test
     timestamp = 1430162520
     Goodguide::Health.configure do |health|
       health.revision = 'foo'
-      health.deployed_at = Time.at(timestamp)
+      health.deployed_at = Time.at(timestamp).utc
     end
     get '/status'
 
     assert last_response.ok?
     assert_status_response_matches parsed_response, default_status_response.merge(
-      deployed_at: Time.at(timestamp).to_s,
+      deployed_at: Time.at(timestamp).utc.iso8601,
       revision: 'foo'
     )
   end
@@ -151,9 +151,9 @@ class Goodguide::HealthTest < Minitest::Test
   def default_status_response
     {
       status: 'ok',
-      now: Time.now.to_i,
-      deployed_at: app_boot_time.to_s,
-      started_at: app_boot_time.to_s,
+      now: Time.now.utc.to_i,
+      deployed_at: app_boot_time.utc.iso8601,
+      started_at: app_boot_time.utc.iso8601,
       host: `hostname`.chomp,
       revision: git_revision,
     }
